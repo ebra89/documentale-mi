@@ -1,10 +1,12 @@
 server:
   port: 8092
-  servlet:
-    context-path: /documentale-content
+  #servlet:
+  #  context-path: /documentale-content
 
 
 spring:
+  application:
+    name: documentale-content
   h2:
     console:
       path: /h2-console
@@ -18,3 +20,12 @@ spring:
     driverClassName: org.h2.Driver
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://eureka:password@localhost:8761/eureka}
+  register-with-eureka: true
+  fetch-registry: true
+  instance:
+    preferIpAddress: true
