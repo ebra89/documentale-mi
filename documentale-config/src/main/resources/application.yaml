@@ -1,5 +1,7 @@
 server:
   port: 8091
+  servlet:
+    context-path: /documentale-config
 
 spring:
   h2:
@@ -9,7 +11,7 @@ spring:
       settings.web-allow-others: false
       enabled: true
   datasource:
-    url: jdbc:h2:file:/data/demo
+    url: jdbc:h2:file:/data/config
     username: sa
     password: password
     driverClassName: org.h2.Driver
