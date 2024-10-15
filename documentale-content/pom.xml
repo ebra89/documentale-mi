@@ -10,6 +10,12 @@
     </parent>
     <artifactId>documentale-content</artifactId>
     <name>documentale-content</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
 
     <build>
         <finalName>app</finalName>
