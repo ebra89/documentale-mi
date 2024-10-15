@@ -1,8 +1,8 @@
 -- Protocolli
-INSERT INTO protocol (validation_author, is_valid, type, state, create_date, create_user, update_date, update_user) 
+INSERT INTO protocol (validation_user, is_valid, type, state, create_date, create_user, update_date, update_user) 
 VALUES ('Alice Bianchi', 1, 'typeA', 'ok', '2024-10-12', 'admin', '2024-10-13', 'admin');
 
-INSERT INTO protocol (validation_author, is_valid, type, state, create_date, create_user, update_date, update_user) 
+INSERT INTO protocol (validation_user, is_valid, type, state, create_date, create_user, update_date, update_user) 
 VALUES (NULL, 0, 'typeB', 'wait_revision', '2024-10-10', 'Luca Verdi', NULL, 'Luca Verdi');
 
 -- Documenti
