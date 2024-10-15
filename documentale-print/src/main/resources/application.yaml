@@ -6,28 +6,26 @@ server:
 spring:
   application:
     name: documentale-print
-  h2:
-    console:
-      path: /h2-console
-      settings.trace: false
-      settings.web-allow-others: false
-      enabled: true
-  datasource:
-    url: jdbc:h2:file:/data/demo
-    username: sa
-    password: password
-    driverClassName: org.h2.Driver
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+#  h2:
+#    console:
+#      path: /h2-console
+#      settings.trace: false
+#      settings.web-allow-others: false
+#      enabled: true
+#  datasource:
+#    url: jdbc:h2:file:/data/doc-print
+#    username: sa
+#    password: password
+#    driverClassName: org.h2.Driver
+#  jpa:
+#    database-platform: org.hibernate.dialect.H2Dialect
 
-eureka:
-  client:
-    service-url:
-      defaultZone: ${EUREKA_URI:http://eureka:password@localhost:8761/eureka}
-#  register-with-eureka: true
-#  fetch-registry: true
-  instance:
-    prefer-ip-address: true
-    hostname: localhost
-
-
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: ${EUREKA_URI:http://eureka:password@localhost:8761/eureka}
+##  register-with-eureka: true
+##  fetch-registry: true
+#  instance:
+#    prefer-ip-address: true
+#    hostname: localhost
