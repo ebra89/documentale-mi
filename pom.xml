@@ -18,6 +18,8 @@
         <module>documentale-config</module>
         <module>documentale-api</module>
         <module>documentale-content</module>
+<!--        <module>documentale-print</module>-->
+        <module>documentale-archive</module>
     </modules>
 
     <properties>
