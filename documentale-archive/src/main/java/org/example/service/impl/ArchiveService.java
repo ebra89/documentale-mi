@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class ArchiveService implements IArchiveService {
@@ -28,6 +29,10 @@ public class ArchiveService implements IArchiveService {
         archive.setCreateUser("luca.verdi@doc.it");
         archive.setLocation("MI");
         archiveRepository.save(archive);
+    }
+
+    public List<ArchiveEntity> findAll() {
+        return archiveRepository.findAll();
     }
 
 }
