@@ -21,7 +21,7 @@ public class DocArchiveController {
         this.archiveService = archiveService;
     }
 
-    @PostMapping(value = "/documentale-archive/archives", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/archives", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> archiveDocument(@Valid @RequestBody DocToArchiveDTO dto) {
         archiveService.saveDocument(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
