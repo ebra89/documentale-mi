@@ -7,6 +7,7 @@ import org.example.service.IDocumentService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -17,6 +18,11 @@ public class DocumentService implements IDocumentService {
     @Override
     public List<DocumentEntity> getTestMessage() {
         return documentRepository.findAll();
+    }
+
+    @Override
+    public Optional<DocumentEntity> findById(Long documentId) {
+        return documentRepository.findById(documentId);
     }
 
 }

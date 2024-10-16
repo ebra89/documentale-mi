@@ -1,34 +1,44 @@
 package org.example.controller;
 
-//import io.swagger.v3.oas.annotations.tags.Tag;
-
+import org.example.client.DocArchiveFeignClient;
+import org.example.dto.DocToArchiveDTO;
+import org.example.exception.ResourceNotFoundException;
 import org.example.persistence.entity.DocumentEntity;
-import org.example.service.impl.DocumentService;
+import org.example.service.IDocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
-//@Tag(name = "TestController - TAG", description = "Descrizione - TestController - TAG")
 public class DocContentController {
 
-    private final DocumentService documentService;
+    private final IDocumentService documentService;
+    private final DocArchiveFeignClient docArchiveFeignClient;
 
     @Autowired
-    public DocContentController(DocumentService service) {
-        this.documentService = service;
+    public DocContentController(
+        DocArchiveFeignClient docArchiveFeignClient,
+        IDocumentService documentService
+    ) {
+        this.docArchiveFeignClient = docArchiveFeignClient;
+        this.documentService = documentService;
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    //@Tag(name = "metodo get", description = "descrizione metodo get")
-    public ResponseEntity<List<DocumentEntity>> test() {
-        return new ResponseEntity<>(documentService.getTestMessage(), HttpStatus.OK);
+    @PostMapping(value = "/docs/{documentId}/archive", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> archiveDocument(@PathVariable(name = "documentId") Long documentId) {
+        Optional<DocumentEntity> document = Optional.ofNullable(documentService.findById(documentId).orElseThrow(
+            () -> new ResourceNotFoundException("Document", "id", documentId != null ? String.valueOf(documentId) : null)
+        ));
+        DocumentEntity doc = document.get();
+        DocToArchiveDTO dto = new DocToArchiveDTO();
+        dto.setDocumentId(doc.getId());
+        dto.setArchiveUserId("luca.verdi@doc.it");
+        return docArchiveFeignClient.archiveDocument(dto);
     }
 
 }
