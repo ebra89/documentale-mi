@@ -6,6 +6,11 @@ server:
 spring:
   application:
     name: documentale-print
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9090/realms/documentale-cdm/protocol/openid-connect/certs
 #  h2:
 #    console:
 #      path: /h2-console
