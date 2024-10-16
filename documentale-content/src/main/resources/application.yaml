@@ -3,7 +3,6 @@ server:
   servlet:
     context-path: /documentale-content
 
-
 spring:
   application:
     name: documentale-content
@@ -26,8 +25,17 @@ spring:
   sql:
     init:
       mode: always
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9090/realms/documentale-cdm/protocol/openid-connect/certs
 
-#eureka:
+  #spring.security.oauth2.resourceserver.opaque.introspection-uri= http://localhost:9090/realms/eazybankdev/protocol/openid-connect/token/introspect}
+  #spring.security.oauth2.resourceserver.opaque.introspection-client-id=documentale-content-introspect
+  #spring.security.oauth2.resourceserver.opaque.introspection-client-secret=c1BK9Bg2REeydBbvUoUeKCbD2bvJzXGj
+
+  #eureka:
 #  client:
 #    service-url:
 #      defaultZone: ${EUREKA_URI:http://eureka:password@localhost:8761/eureka}
@@ -36,3 +44,6 @@ spring:
 #  instance:
 #    prefer-ip-address: true
 #    hostname: localhost
+
+
+
