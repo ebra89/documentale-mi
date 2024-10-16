@@ -19,8 +19,6 @@ public class ArchiveEntity extends BaseEntity {
     @Column
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "document_id")
     private Long documentId;
     private String archiveUserId; // email
     private String state;

@@ -25,6 +25,7 @@ public class ArchiveService implements IArchiveService {
         archive.setArchiveDate(LocalDate.now());
         archive.setState("OK");
         archive.setCreateDate(LocalDateTime.now());
+        archive.setCreateUser("luca.verdi@doc.it");
         archive.setLocation("MI");
         archiveRepository.save(archive);
     }
