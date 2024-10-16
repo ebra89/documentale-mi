@@ -25,4 +25,19 @@ public class DocumentService implements IDocumentService {
         return documentRepository.findAll();
     }
 
+    @Override
+    public void deleteById(Long documentId) {
+        documentRepository.deleteById(documentId);
+    }
+
+    @Override
+    public DocumentEntity createDocument(DocumentEntity newDoc) {
+        return documentRepository.save(newDoc);
+    }
+
+    @Override
+    public DocumentEntity updateDocument(DocumentEntity newDoc) {
+        return documentRepository.save(newDoc);
+    }
+
 }

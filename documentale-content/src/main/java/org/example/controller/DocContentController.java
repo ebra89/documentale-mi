@@ -9,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,10 +56,34 @@ public class DocContentController {
         return ResponseEntity.status(HttpStatus.OK).body(doc);
     }
 
-    //UPDATE
+    @PutMapping(value = "/docs", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DocumentEntity> updateDocument(@RequestBody DocumentEntity newDoc) {
+        DocumentEntity updatedDoc = documentService.updateDocument(newDoc);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedDoc);
+    }
 
-    //DELETE
+    @DeleteMapping(value = "/docs/{documentId}")
+    public ResponseEntity<Void> deleteById(@PathVariable(name = "documentId") Long documentId) {
+        DocumentEntity doc = documentService.findById(documentId).orElseThrow(
+            () -> new ResourceNotFoundException("Document", "id", documentId != null ? String.valueOf(documentId) : null)
+        );
+        documentService.deleteById(doc.getId());
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 
-    //CREATE
+    @PostMapping(value = "/docs", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DocumentEntity> createDocument(@RequestBody DocumentEntity newDoc) {
+        DocumentEntity doc = new DocumentEntity();
+        doc.setDocDate(newDoc.getDocDate());
+        doc.setLocation(newDoc.getLocation());
+        doc.setOwner(newDoc.getOwner());
+        doc.setType(newDoc.getType());
+        doc.setState(newDoc.getState());
+        doc.setRefNumber(newDoc.getRefNumber());
+        doc.setCreateDate(LocalDateTime.now());
+        doc.setCreateUser("admin");
+        DocumentEntity nDoc = documentService.createDocument(doc);
+        return ResponseEntity.status(HttpStatus.OK).body(nDoc);
+    }
 
 }

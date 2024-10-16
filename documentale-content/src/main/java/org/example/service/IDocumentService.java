@@ -11,4 +11,10 @@ public interface IDocumentService {
 
     List<DocumentEntity> findAll();
 
+    void deleteById(Long documentId);
+
+    DocumentEntity createDocument(DocumentEntity newDoc);
+
+    DocumentEntity updateDocument(DocumentEntity newDoc);
+
 }
