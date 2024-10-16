@@ -8,6 +8,7 @@ import org.example.service.IDocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,7 @@ public class DocContentController {
         this.documentService = documentService;
     }
 
+    //    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/docs/{documentId}/archive", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> archiveDocument(@PathVariable(name = "documentId") Long documentId) {
         Optional<DocumentEntity> document = Optional.ofNullable(documentService.findById(documentId).orElseThrow(
