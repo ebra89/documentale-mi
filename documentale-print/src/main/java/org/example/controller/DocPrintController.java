@@ -1,33 +1,34 @@
 package org.example.controller;
 
-//import io.swagger.v3.oas.annotations.tags.Tag;
-
 import org.example.dto.DocumentEntity;
+import org.example.exception.ResourceNotFoundException;
 import org.example.service.impl.PrintService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class DocPrintController {
 
-    private final PrintService service;
+    private final PrintService printSservice;
 
     @Autowired
     public DocPrintController(PrintService service) {
-        this.service = service;
+        this.printSservice = service;
     }
 
-    @RequestMapping(value = "/print/{documentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<DocumentEntity>> print() {
-        return service.test();
+    @GetMapping(value = "/print/{documentId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> printDocument(@PathVariable(name = "documentId") Long documentId) {
+        DocumentEntity doc = Optional.ofNullable(printSservice.fetchDocumentById(documentId)).orElseThrow(
+            () -> new ResourceNotFoundException("Document", "id", documentId != null ? String.valueOf(documentId) : null)
+        ).getBody();
+        return ResponseEntity.status(HttpStatus.OK).body("Document " + doc.getRefNumber() + " has been printed");
     }
 
     @GetMapping(value = "/print-status", produces = MediaType.APPLICATION_JSON_VALUE)

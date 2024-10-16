@@ -16,13 +16,13 @@ public class DocumentService implements IDocumentService {
     private DocumentRepository documentRepository;
 
     @Override
-    public List<DocumentEntity> getTestMessage() {
-        return documentRepository.findAll();
+    public Optional<DocumentEntity> findById(Long documentId) {
+        return documentRepository.findById(documentId);
     }
 
     @Override
-    public Optional<DocumentEntity> findById(Long documentId) {
-        return documentRepository.findById(documentId);
+    public List<DocumentEntity> findAll() {
+        return documentRepository.findAll();
     }
 
 }

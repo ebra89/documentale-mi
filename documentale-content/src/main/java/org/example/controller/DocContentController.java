@@ -6,13 +6,15 @@ import org.example.exception.ResourceNotFoundException;
 import org.example.persistence.entity.DocumentEntity;
 import org.example.service.IDocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -42,5 +44,24 @@ public class DocContentController {
         dto.setArchiveUserId("luca.verdi@doc.it");
         return docArchiveFeignClient.archiveDocument(dto);
     }
+
+    @GetMapping(value = "/docs")
+    public ResponseEntity<List<DocumentEntity>> findAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(documentService.findAll());
+    }
+
+    @GetMapping(value = "/docs/{documentId}")
+    public ResponseEntity<DocumentEntity> findById(@PathVariable(name = "documentId") Long documentId) {
+        DocumentEntity doc = documentService.findById(documentId).orElseThrow(
+            () -> new ResourceNotFoundException("Document", "id", documentId != null ? String.valueOf(documentId) : null)
+        );
+        return ResponseEntity.status(HttpStatus.OK).body(doc);
+    }
+
+    //UPDATE
+
+    //DELETE
+
+    //CREATE
 
 }

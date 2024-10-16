@@ -6,13 +6,12 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(name = "document-content-client", url = "http://localhost:8092", configuration = FeignClientConfig.class)
 public interface DocContentFeignClient {
-    @GetMapping(value = "/documentale-content/test", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<DocumentEntity>> test();
+    @GetMapping(value = "/documentale-content/docs/{documentId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DocumentEntity> fetchDocumentById(@PathVariable(name = "documentId") Long documentId);
 
     //    @GetMapping(value = "/api/availability/{idChannel}/product/{productCode}/resources/{resourceType}")
     //    public ResourcesByProductResponse getResourcesByProduct(@PathVariable(name = "idChannel") UUID idChannel,

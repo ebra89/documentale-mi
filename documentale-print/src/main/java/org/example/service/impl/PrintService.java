@@ -6,8 +6,6 @@ import org.example.service.IPrintService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class PrintService implements IPrintService {
 
@@ -17,8 +15,8 @@ public class PrintService implements IPrintService {
         this.docContentFeignClient = docContentFeignClient;
     }
 
-    public ResponseEntity<List<DocumentEntity>> test() {
-        return docContentFeignClient.test();
+    public ResponseEntity<DocumentEntity> fetchDocumentById(Long documentId) {
+        return docContentFeignClient.fetchDocumentById(documentId);
     }
 
 }

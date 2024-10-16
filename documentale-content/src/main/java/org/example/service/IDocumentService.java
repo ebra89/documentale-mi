@@ -7,8 +7,8 @@ import java.util.Optional;
 
 public interface IDocumentService {
 
-    List<DocumentEntity> getTestMessage();
-
     Optional<DocumentEntity> findById(Long documentId);
+
+    List<DocumentEntity> findAll();
 
 }
