@@ -19,6 +19,7 @@ public class DocApiController {
         this.service = service;
     }
 
+    //@PreAuthorize("hasAuthority('SCOPE_DOCUMENTALE-MI')")
     @RequestMapping(value = "/test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     //@Tag(name = "metodo get", description = "descrizione metodo get")
     public ResponseEntity<String> test(){

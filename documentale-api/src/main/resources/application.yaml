@@ -1,24 +1,36 @@
 server:
-  port: 8090
+  port: 8091
   servlet:
-    context-path: /documentale-api
+    context-path: /
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: documentale-api
-  h2:
-    console:
-      path: /h2-console
-      settings.trace: false
-      settings.web-allow-others: false
-      enabled: true
-  datasource:
-    url: jdbc:h2:file:/data/demo
-    username: sa
-    password: password
-    driverClassName: org.h2.Driver
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+#  h2:
+#    console:
+#      path: /h2-console
+#      settings.trace: false
+#      settings.web-allow-others: false
+#      enabled: false
+#  datasource:
+#    url: jdbc:h2:file:/data/demo
+#    username: sa
+#    password: password
+#    driverClassName: org.h2.Driver
+#  jpa:
+#    database-platform: org.hibernate.dialect.H2Dialect
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8090/realms/documentale-mi/protocol/openid-connect/certs
 
 eureka:
   client:
