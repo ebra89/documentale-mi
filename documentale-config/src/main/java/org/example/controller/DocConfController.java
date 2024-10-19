@@ -14,6 +14,8 @@ public class DocConfController {
 
     private final TestService service;
 
+
+
     @Autowired
     public DocConfController(TestService service) {
         this.service = service;
@@ -22,7 +24,7 @@ public class DocConfController {
     @RequestMapping(value = "/test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     //@Tag(name = "metodo get", description = "descrizione metodo get")
     public ResponseEntity<String> test(){
-        return new ResponseEntity<>(service.getTestMessage(), HttpStatus.OK);
+        return new ResponseEntity<>("I'm ok, from Config", HttpStatus.OK);
     }
 
 }
