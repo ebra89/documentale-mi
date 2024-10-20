@@ -12,6 +12,7 @@ public interface ContentService {
 
     void deleteContentById(Long id);
 
+    Content saveContentByDepartment(Content content,String dep);
 
 
 }

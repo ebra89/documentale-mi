@@ -6,6 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -13,19 +15,13 @@ import lombok.*;
 @Builder
 @Setter
 @Getter
-public class Content {
-
+public class DocConfig {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String contentType;
-    private String content;
-    private String path;
-
+    private List<String> docType;
     private Long size;
-
-
-
-
+    private String path;
+    private String department;
 }
