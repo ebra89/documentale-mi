@@ -35,5 +35,10 @@ eureka:
 #  register-with-eureka: true
 #  fetch-registry: true
   instance:
+    #Networking/Firewall Issues
+    #Problem: The use of IP addresses instead of hostnames might bypass DNS resolution. In environments where specific routing rules,
+    #firewalls, or security configurations are based on hostnames, the service might fail to communicate with other services.
+    #Solution: Ensure that IP-based communication is allowed in your network configuration, including firewall rules,
+    #security groups, and any other routing policies that might block IP traffic.
     #prefer-ip-address: true
     hostname: localhost
