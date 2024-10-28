@@ -4,7 +4,9 @@ import org.example.exception.CustomAccessDeniedHandler;
 import org.example.utils.KeycloakRoleConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
@@ -35,8 +37,8 @@ public class SecurityConfig {
 
             // Request authorizations
             .authorizeHttpRequests((requests) -> requests
-                .requestMatchers(/*HttpMethod.POST,*/ AntPathRequestMatcher.antMatcher("/documentale-archive/archives")).hasRole("USER")
-                .requestMatchers(/*HttpMethod.GET,*/ AntPathRequestMatcher.antMatcher("/documentale-archive/archives")).hasAnyRole("USER", "ADMIN", "READ", "PROTOCOL_VALIDATION")
+                .requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.POST, "/documentale-archive/archives")).hasRole("USER")
+                .requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.GET, "/documentale-archive/archives")).hasAnyRole("USER", "ADMIN", "READ", "PROTOCOL_VALIDATION")
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
                 .anyRequest().authenticated()
             )
@@ -46,7 +48,10 @@ public class SecurityConfig {
                 jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter)))
 
             // Exception handling
-            .exceptionHandling(ehc -> ehc.accessDeniedHandler(new CustomAccessDeniedHandler()));
+            .exceptionHandling(ehc -> ehc.accessDeniedHandler(new CustomAccessDeniedHandler()))
+
+            // Headers config
+            .headers(hc -> hc.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 
         return http.build();
     }

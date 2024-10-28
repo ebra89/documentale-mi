@@ -12,10 +12,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class KeycloakRoleConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
-    /**
-     * @param source the source object to convert, which must be an instance of {@code S} (never {@code null})
-     * @return
-     */
+
     @Override
     public Collection<GrantedAuthority> convert(Jwt source) {
         Map<String, Object> realmAccess = (Map<String, Object>) source.getClaims().get("realm_access");

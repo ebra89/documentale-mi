@@ -18,13 +18,6 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
-    /*@Value("${spring.security.oauth2.resourceserver.opaque.introspection-uri}")
-    String introspectionUri;
-    @Value("${spring.security.oauth2.resourceserver.opaque.introspection-client-id}")
-    String clientId;
-    @Value("${spring.security.oauth2.resourceserver.opaque.introspection-client-secret}")
-    String clientSecret;*/
-
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource) throws Exception {
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
@@ -43,10 +36,6 @@ public class SecurityConfig {
             // Request authorizations
             .authorizeHttpRequests((requests) -> requests
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/print/**")).hasRole("USER")
-                //                .requestMatchers("/api-1").hasAnyRole("USER", "ADMIN")
-                //                .requestMatchers("/api-2").authenticated()
-                //                .requestMatchers("/api-3").hasRole("USER")
-                //                .requestMatchers("/api-4").authenticated()
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
                 .anyRequest().authenticated()
             )
@@ -54,8 +43,6 @@ public class SecurityConfig {
             // JWT-based requests config
             .oauth2ResourceServer(rsc -> rsc.jwt(jwtConfigurer ->
                 jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter)))
-            // http.oauth2ResourceServer(rsc -> rsc.opaqueToken(otc -> otc.authenticationConverter(new KeycloakOpaqueRoleConverter())
-            //   .introspectionUri(this.introspectionUri).introspectionClientCredentials(this.clientId,this.clientSecret)));
 
             // Exception handling
             .exceptionHandling(ehc -> ehc.accessDeniedHandler(new CustomAccessDeniedHandler()));
